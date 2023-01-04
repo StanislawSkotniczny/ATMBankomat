@@ -9,28 +9,19 @@ namespace ATMBankomat
 {
     internal class Account
     {
-        string Name { get; set; }
-        string Surname { get; set; }
-        public string Password { get; set; }
-        public int Id { get; set; }    
-
-
-        public Account(string name , string surname , string password , int id)
-        {
-            this.Name = name;
-            this.Surname = surname;
-            this.Password = password;
-            this.Id = id;
-
+        public Customer Customer { get; set; }
+        
+        public Account(Customer customer  )
+        {    
+            this.Customer = customer;
         }
-           
 
 
         public int Ballance { get; set; }
         bool PremiumAccount { get; set; }
 
 
-        public  void Deposit(int y)
+        public  void Deposit()
         {
             Console.Write("enter the amount of money:");
             int x = int.Parse(Console.ReadLine());
@@ -38,7 +29,7 @@ namespace ATMBankomat
         }
 
 
-        public void Withdraw(int y)
+        public void Withdraw()
         {
             Console.Write("enter the amount of money:");
             int x = int.Parse(Console.ReadLine());
@@ -50,14 +41,11 @@ namespace ATMBankomat
 
         public  void DisplayInfo()
         {
-            Console.WriteLine(Ballance);
+            Console.WriteLine($"Ballance :{Ballance}");
         }
 
 
-        public void CreateAccount()
-        {
-
-        }
+       
 
 
     }

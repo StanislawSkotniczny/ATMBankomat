@@ -34,86 +34,104 @@ namespace ATM
                         Console.Write("create ur password: ");
                         string password = Console.ReadLine();
 
-
+                        
                         Customer customer = new Customer(password, name, surname);
-                        customer.CreateAcc();
+                        Account account = new Account(customer);
                         customer.DisplayUserInfo();
+                        accounts.Add(account);
+                        string userInput = null;
+                        while (userInput != "3")
+                        {
+                            Console.WriteLine("Account was succesfully created");
+                            Console.WriteLine("Press 1 to deposit money");
+                            Console.WriteLine("Press 2 to withdraw money");
+                            Console.WriteLine("Press 3 to exit");
 
-                        Console.WriteLine("Account was succesfully created");
-                        Console.WriteLine("Press 1 to deposit money");
-                        Console.WriteLine("Press 2 to withdraw money");
-                        Console.WriteLine("Press 3 to exit");
-                        string userInput = Console.ReadLine();
+                            userInput = Console.ReadLine();
 
-                        if (userInput == "1")
-                        {
-                            accounts[].Deposit(100);
-                        }
-                        else if (userInput == "2")
-                        {
-                            accounts[].Withdraw(200);
-                        }
-                        else
-                        {
-                            work = false;
-                        }
-                        accounts[].DisplayInfo();
+                            if (userInput == "1")
+                            {
+                                account.Deposit();
+                            }
+                            else if (userInput == "2")
+                            {
+                                account.Withdraw();
+                            }
+                            else
+                            {
+                                work = false;
+                            }
+                            account.DisplayInfo();
+                        } 
+                       
                        
                         break;
 
                     case "2":
 
-                        Console.Write("enter your id: ");
-                        int id_check = int.Parse(Console.ReadLine());
-                        for(int i= 0; i < accounts.Count; i++)
+                        
+                        try 
                         {
-                            if (accounts[i].Id == (id_check))
+                            Account account1 = null ;
+                            do 
                             {
-                                Console.Write("Enter your password:");
-                                string password_check = Console.ReadLine();
-                                for(int j=0; j < accounts.Count; j++)
+                                Console.Write("enter your id: ");
+                                string id_check = (Console.ReadLine());
+                                if (!int.TryParse(id_check, out int lol))
                                 {
-                                    if (accounts[j].Password == (password_check))
-                                    {
-                                        Console.WriteLine("Welcome to your account ");
-                                        Console.WriteLine("Press 1 to deposit money");
-                                        Console.WriteLine("Press 2 to withdraw money");
-                                        Console.WriteLine("Press 3 to exit");
-                                        string userInput1 = Console.ReadLine();
-
-                                        if (userInput1 == "1")
-                                        {
-                                            accounts[j].Deposit(100);
-                                        }
-                                        else if (userInput1 == "2")
-                                        {
-                                            accounts[j].Withdraw(200);
-                                        }
-                                        else
-                                        {
-                                            work = false;
-                                        }
-                                        accounts[j].DisplayInfo();
-                                    }
-                                    else
-                                        Console.WriteLine("wrong Password");
+                                    throw new Exception("wrong id");
                                 }
 
+
+                                
+                                account1 = Login(lol);
+                                if(account1 == null)
+                                {
+                                    throw new Exception("");
+                                }
+
+                                string userInput1 = null;
+                                while(userInput1 != "3")
+                                {
+                                    Console.WriteLine("Press 1 to deposit money");
+                                    Console.WriteLine("Press 2 to withdraw money");
+                                    Console.WriteLine("Press 3 to exit");
+                                    userInput1 = Console.ReadLine();
+
+                                    if (userInput1 == "1")
+                                    {
+                                        account1.Deposit();
+                                    }
+                                    else if (userInput1 == "2")
+                                    {
+                                        account1.Withdraw();
+                                    }
+                                    else
+                                    {
+                                        account1 = null;
+                                    }
+                                   
+                                }
                             }
-                            else
-                            {
-                                Console.WriteLine("user not found");
-                            }
+                            while (account1 != null);
+
 
 
                         }
+                        catch(Exception ex )
+                        {
+                            Console.WriteLine(ex.Message);
+
+                        }
+                        
+                        
 
 
                         break;
 
                     case "3":
-                         
-                        
+                              
+                            
                         break;
 
                     default:
@@ -133,6 +151,32 @@ namespace ATM
 
         }
 
-       
+        public static Account Login(int id_check)
+        {
+            for (int i = 0; i < accounts.Count; i++)
+            {
+
+                if (accounts[i].Customer.Id == (id_check))
+                {
+                    Console.Write("Enter your password:");
+                    string password_check = Console.ReadLine();
+
+
+                    if (accounts[i].Customer.Password == (password_check))
+                    {
+                        Console.WriteLine("Welcome to your account ");
+                        return  accounts[i];
+
+
+                    }
+                }
+
+               
+            }
+            return null;
+        }
+
+
+
     }
 }

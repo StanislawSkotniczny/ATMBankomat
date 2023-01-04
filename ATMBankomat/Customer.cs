@@ -23,18 +23,12 @@ namespace ATMBankomat
         }
 
 
-         public void CreateAcc()
-            {
-                Program.accounts.Add(new Account(Name, Surname, Password, Id));
-
-            }
-
         public void DisplayUserInfo()
         {
-            Console.WriteLine(Name);
-            Console.WriteLine(Surname);
-            Console.WriteLine(Password);
-            Console.WriteLine(Id);
+            Console.WriteLine($"Name: {Name}");
+            Console.WriteLine($"Surname: {Surname}");
+            Console.WriteLine($"Password: {Password}");
+            Console.WriteLine($"Id: {Id}");
         }
 
 
