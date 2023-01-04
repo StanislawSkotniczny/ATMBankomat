@@ -42,7 +42,7 @@ namespace ATM
                         string userInput = null;
                         while (userInput != "3")
                         {
-                            Console.WriteLine("Account was succesfully created");
+                            
                             Console.WriteLine("Press 1 to deposit money");
                             Console.WriteLine("Press 2 to withdraw money");
                             Console.WriteLine("Press 3 to exit");
@@ -61,7 +61,7 @@ namespace ATM
                             {
                                 work = false;
                             }
-                            account.DisplayInfo();
+                            
                         } 
                        
                        
